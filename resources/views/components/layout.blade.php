@@ -46,7 +46,7 @@
             </ul>
         </nav>
         <main>
-    @yield('content')
+            {{$slot}}
     </main>
     <!-- yield is a placeholder for content that will be injected into the layout -->
     <footer

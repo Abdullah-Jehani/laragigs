@@ -1,0 +1,22 @@
+      // or
+        // route::get('/listings/{id}' , function($id) {
+    // $listing = Listing::find($id);
+    // if ($listing) {
+        //     return view('listing' , [
+//   'listing' => $listing 
+// ]) ;
+    // }
+    // else {
+    //     abort('404');
+    // }
+
+// });
+
+// common resource routes:
+//index - show all listings
+//create - show the form to create a listing
+//store - save the listing to the database
+//show - show a single listing
+//edit - show the form to edit a listing
+//update - save the changes to the database
+//destroy - delete a listing from the database
