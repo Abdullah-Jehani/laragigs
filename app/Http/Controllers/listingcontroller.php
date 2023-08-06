@@ -11,7 +11,7 @@ class listingcontroller extends Controller
     // show all lists 
     public function index() {
         return view('listings.index' , [
-            'listings' => listing::latest()->filter(request(['tag' , 'search']))->get()
+            'listings' => listing::latest()->filter(request(['tag' , 'search']))->simplepaginate(6) // allows to us to devide the items on multible pages
         ]);
     }
     // show single listing 
@@ -37,7 +37,13 @@ class listingcontroller extends Controller
         'description' => 'required'
 
         ]);
+
+
+       if ($request->hasFile('logo')) {
+        $formField['logo'] = $request->file('logo')->store('logos' , 'public');
+       }
         listing::create($formField) ; 
+
         return redirect('/')->with('message' , 'Listing Created Successfully!') ;
     }
     
