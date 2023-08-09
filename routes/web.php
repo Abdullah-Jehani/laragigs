@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\listingcontroller;
-use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\listingcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +17,31 @@ use App\Models\Listing;
 */
 // All Listings
 Route::get('/', [listingcontroller::class , 'index']);
-
 // create form 
-route::get('/listings/create' , [listingcontroller::class , 'create']) ;
-
+route::get('/listings/create' , [listingcontroller::class , 'create'])->middleware('auth') ;
 // store listing data
-route::post('/listings' , [listingcontroller::class , 'store']) ;
-
-
-
-// Single Listing by checking the id
-// this function is needed to be at the end
+route::post('/listings' , [listingcontroller::class , 'store'])->middleware('auth') ;
+// edit lists form
+route::get('/listings/{listing}/edit' , [listingcontroller::class , 'edit'])->middleware('auth') ;
+//  update Listings
+route::put('/listings/{listing}' , [listingcontroller::class , 'update'])->middleware('auth') ; 
+// delete listing
+route::delete('/listings/{listing}' , [listingcontroller::class , 'destroy'])->middleware('auth');
+// manage Listings
+route::get('/listings/manage' , [listingcontroller::class , 'manage'])->middleware('auth') ; 
+// this function is needed to be at the end //show Single Listing by checking the id
 route::get('/listings/{listing}', [listingcontroller::class , 'show'] );
-
-
+// show register/create form
+route::get('/register' , [UserController::class , 'create'])->middleware('guest') ;
+// create New User
+route::post('/users' , [UserController::class , 'store']) ;
+// log user Out
+route::post('/logout' , [UserController::class , 'logout'])->middleware('auth') ; 
+//show Login Form
+route::get('/login' , [UserController::class , 'login'])->name('login')->middleware('guest') ;
+// log in the User
+route::post('/users/authenticate' , [UserController::class , 'authenticate']) ; 
+ 
 
 
 

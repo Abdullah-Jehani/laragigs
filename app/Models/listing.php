@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class listing extends Model
 {
     use HasFactory;
-    protected $fillable = ['title' , 'tags' , 'company' , 'location' , 'email' , 'website' , 'description'];
+    protected $fillable = ['title' , 'user_id' , 'tags' , 'company' , 'location' , 'email' , 'website' , 'description'];
     // this function used to filter the request by checking for a match in DB 
     // the array filters is the request from the user and inside it is the tah the user want to search for
     // the query is the sql query the will check for the user request in the DB
@@ -30,5 +30,8 @@ class listing extends Model
 
             ;
     }
+    }
+    public function user() {
+        return $this->belongsTo(user::class , 'user-id');
     }
 }
